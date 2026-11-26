@@ -5,7 +5,7 @@ const mode=b.dataset.mode;R.mode=mode;const root=mode==='pdp'?document.querySele
 if(!root||!root.querySelector('.vkw-n')){R.issues.push('niet gerenderd');return R}
 root.scrollIntoView();await new Promise(r=>setTimeout(r,1500));
 const bad=[...root.querySelectorAll('img')].filter(i=>i.getAttribute('src')&&!(i.complete&&i.naturalWidth));if(bad.length)R.issues.push(bad.length+' foto(s) niet geladen');
-R.nodes=root.querySelectorAll('.vkw-n').length;
+R.nodes=root.querySelectorAll('.vkw-n').length;R.bord=[...root.querySelectorAll('.vkw-n')].some(n=>n.getAttribute('aria-label')==='Bordeaux');
 if(R.sw>R.vw+1)R.issues.push('horizontaal scrollen '+R.sw);
 const rb=root.getBoundingClientRect();if(rb.right>innerWidth+1||rb.left<-1)R.issues.push('buiten beeld '+Math.round(rb.left)+'-'+Math.round(rb.right));
 const links=[...root.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).filter(h=>h&&h!=='#'&&!/cart/.test(h));
@@ -22,4 +22,4 @@ if(mode==='pdp'){const g=document.querySelector('ul.product-slider');if(g&&g.sty
  R.hd=b.querySelector('.vkw-hd h3')?.textContent;R.tiers=[...b.querySelectorAll('.vkw-tier')].map(x=>x.textContent).join('/');R.tot=b.querySelector('.vkw-tot')?.textContent;
  const cta=b.querySelector('.vkw-add').getBoundingClientRect();if(cta.width<120||cta.height<40)R.issues.push('knop te klein');R.mob=b.classList.contains('vkw-m');
  R.sub=(b.querySelector('.vkw-sub')||{}).textContent;}
-R.krulCount=document.querySelectorAll('#vxl-krulkaart').length;R.h1=R.h1||document.querySelector('h1')?.textContent.trim();return R})()
+R.url=location.pathname;R.krulCount=document.querySelectorAll('#vxl-krulkaart').length;R.h1=R.h1||document.querySelector('h1')?.textContent.trim();return R})()
